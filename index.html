@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<meta name="theme-color" content="#0b1220">
+<title>SmartTrip 3.0 | Build the whole journey</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700;800&family=Playfair+Display:wght@600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<header class="topbar">
+  <a class="brand" href="#" onclick="showPage('home');return false;"><span class="brand-mark">✦</span><span>SmartTrip<small>BUILD THE JOURNEY</small></span></a>
+  <nav>
+    <button onclick="showPage('home')">Home</button>
+    <button onclick="showPage('planner')">Smart Planner</button>
+    <button onclick="showPage('flights')">Flights</button>
+    <button onclick="showPage('hotels')">Hotels</button>
+    <button onclick="showPage('buses')">Buses</button>
+    <button onclick="showPage('cabs')">Cabs</button>
+    <button onclick="showPage('trips')">My Trips</button><button onclick="handleAdmin()">Admin</button>
+  </nav>
+  <div class="actions">
+    <button class="circle" onclick="toggleDark()" title="Dark mode">◐</button>
+    <button class="alert" onclick="showPage('trips')">🔔<b>3</b></button>
+    <button class="profile" onclick="handleProfile()"><span id="avatar">👤</span><span id="profileLabel">Login</span></button>
+  </div>
+</header>
+
+<main>
+<section id="home" class="page active">
+  <div class="hero">
+    <div class="hero-copy">
+      <span class="eyebrow">TRAVEL, REIMAGINED</span>
+      <h1>Don't just book a trip.<br><em>Build the whole experience.</em></h1>
+      <p>Tell SmartTrip where you want to go, your budget and your travel vibe. Build a complete journey with transport, hotels, buses, cabs, activities and a day-wise itinerary.</p>
+      <div class="hero-buttons">
+        <button class="primary big" onclick="showPage('planner')">✨ Build my trip</button>
+        <button class="secondary big" onclick="document.getElementById('demo').scrollIntoView({behavior:'smooth'})">See how it works</button>
+      </div>
+      <div class="trust"><span>🔐 CAPTCHA login</span><span>💰 Smart price breakdown</span><span>🚌 Indian bus booking</span></div>
+    </div>
+    <div class="hero-art">
+      <img src="https://images.unsplash.com/photo-1500534623283-312aade485b7?auto=format&fit=crop&w=1200&q=85" alt="Travel landscape">
+      <div class="floating-card trip-mini"><span>✨ SMART PLAN</span><strong>Goa · 4 days</strong><small>₹12,480 / person</small><div class="mini-progress"><i></i></div><small>Trip ready · 86%</small></div>
+      <div class="floating-card save-mini"><b>₹1,850</b><span>smart savings</span></div>
+    </div>
+  </div>
+
+  <div class="quick-search">
+    <div class="quick-title"><span>Where should we take you?</span><small>Start with a destination or jump straight into the planner.</small></div>
+    <div class="quick-fields">
+      <label>Destination<input id="quickDest" placeholder="Goa, Araku, Kerala..." value="Goa"></label>
+      <label>Budget / person<select id="quickBudget"><option value="8000">₹8,000</option><option value="12000" selected>₹12,000</option><option value="20000">₹20,000</option><option value="30000">₹30,000+</option></select></label>
+      <button class="primary" onclick="prefillPlanner()">Start planning →</button>
+    </div>
+  </div>
+
+  <section id="demo" class="section">
+    <div class="section-head"><div><span class="eyebrow">ONE PLATFORM</span><h2>Everything your trip needs</h2></div></div>
+    <div class="feature-grid">
+      <article><span>01</span><div>🧠</div><h3>Smart Trip Builder</h3><p>Turn your budget and interests into a practical day-wise trip plan.</p></article>
+      <article><span>02</span><div>💰</div><h3>Area-aware hotel prices</h3><p>Prices change using location, hotel tier, season and weekend rules.</p></article>
+      <article><span>03</span><div>🚌</div><h3>Bus + seat booking</h3><p>Browse Indian operators, compare fares and select seats visually.</p></article>
+      <article><span>04</span><div>🎫</div><h3>Travel wallet</h3><p>Keep your flight, hotel, bus and cab confirmations together.</p></article>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="section-head"><div><span class="eyebrow">POPULAR INDIA</span><h2>Pick a destination</h2></div></div>
+    <div class="destination-grid">
+      <article onclick="chooseDestination('Goa')"><img src="https://images.unsplash.com/photo-1512343879784-a960bf40e7f2?auto=format&fit=crop&w=900&q=80"><b>Goa</b><span>Beaches · nightlife · food</span></article>
+      <article onclick="chooseDestination('Kerala')"><img src="https://images.unsplash.com/photo-1602216056096-3b40cc0c9944?auto=format&fit=crop&w=900&q=80"><b>Kerala</b><span>Backwaters · nature</span></article>
+      <article onclick="chooseDestination('Araku')"><img src="https://images.unsplash.com/photo-1500530855697-b586d89ba3ee?auto=format&fit=crop&w=900&q=80"><b>Araku Valley</b><span>Hills · coffee · waterfalls</span></article>
+      <article onclick="chooseDestination('Rajasthan')"><img src="https://images.unsplash.com/photo-1477587458883-47145ed94245?auto=format&fit=crop&w=900&q=80"><b>Rajasthan</b><span>Forts · culture · deserts</span></article>
+    </div>
+  </section>
+</section>
+
+<section id="planner" class="page">
+  <div class="page-title"><span class="eyebrow">SMART TRIP BUILDER</span><h1>Build a trip around <em>you.</em></h1><p>Choose your destination, budget and interests. SmartTrip creates a demo itinerary and cost plan you can customize.</p></div>
+  <div class="planner-layout">
+    <div class="planner-form card">
+      <h2>Tell us about your trip</h2>
+      <div class="form-grid">
+        <label>Destination<input id="pDest" value="Goa"></label>
+        <label>Days<select id="pDays"><option>2</option><option selected>3</option><option>4</option><option>5</option><option>7</option></select></label>
+        <label>Travellers<select id="pPeople"><option>1</option><option>2</option><option selected>4</option><option>5</option><option>6</option></select></label>
+        <label>Budget / person<select id="pBudget"><option value="6000">₹6,000</option><option value="8000">₹8,000</option><option value="12000" selected>₹12,000</option><option value="20000">₹20,000</option><option value="30000">₹30,000</option></select></label>
+      </div>
+      <h3>Your travel vibe</h3>
+      <div class="chips" id="vibes">
+        <button class="chip selected" data-vibe="nature">🌿 Nature</button><button class="chip selected" data-vibe="food">🍜 Food</button><button class="chip" data-vibe="adventure">🥾 Adventure</button><button class="chip" data-vibe="culture">🏛️ Culture</button><button class="chip" data-vibe="relax">🌴 Relax</button><button class="chip" data-vibe="photo">📸 Photography</button>
+      </div>
+      <button class="primary big full" onclick="buildTrip()">✨ Build my SmartTrip</button>
+      <small class="demo-note">Demo pricing uses transparent rules. A production version can connect live flight, hotel, bus and weather APIs.</small>
+    </div>
+    <div id="plannerOutput" class="planner-output">
+      <div class="empty-state"><div>🧭</div><h2>Your trip will appear here</h2><p>Build a trip to see transport, hotel, activities, budget and a day-wise plan.</p></div>
+    </div>
+  </div>
+</section>
+
+<section id="flights" class="page">
+  <div class="page-title"><span class="eyebrow">FLIGHT COMPARISON</span><h1>Compare before you book.</h1><p>Demo inventory with current and legacy carrier references clearly separated.</p></div>
+  <div class="filterbar"><button class="filter active" onclick="renderFlights('all',this)">All</button><button class="filter" onclick="renderFlights('price',this)">Lowest price</button><button class="filter" onclick="renderFlights('fast',this)">Fastest</button></div>
+  <div id="flightList"></div>
+</section>
+
+<section id="hotels" class="page">
+  <div class="page-title"><span class="eyebrow">HOTEL DISCOVERY</span><h1>Stay where it makes sense.</h1><p>Area-aware demo pricing changes according to destination, area, hotel tier and demand rules.</p></div>
+  <div class="hotel-controls card">
+    <label>Destination<select id="hotelDestination" onchange="renderHotels()"><option>Goa</option><option>Mumbai</option><option>Hyderabad</option><option>Kerala</option><option>Rajasthan</option><option>Araku</option></select></label>
+    <label>Area<select id="hotelArea" onchange="renderHotels()"></select></label>
+    <label>Guests<select><option>2</option><option>3</option><option>4</option></select></label>
+  </div>
+  <div id="hotelList"></div>
+</section>
+
+<section id="buses" class="page">
+  <div class="page-title"><span class="eyebrow">BUS BOOKING</span><h1>Choose a bus. Pick your seats.</h1><p>Indian operator/service names are used as demo inventory. Schedules and fares are illustrative unless connected to a live API.</p></div>
+  <div class="bus-search card">
+    <label>From<input id="busFrom" value="Vijayawada"></label>
+    <label>To<input id="busTo" value="Hyderabad"></label>
+    <label>Date<input id="busDate" type="date"></label>
+    <button class="primary" onclick="searchBuses()">Search buses</button>
+  </div>
+  <div id="busList"></div>
+</section>
+
+<section id="cabs" class="page">
+  <div class="page-title"><span class="eyebrow">LOCAL TRANSPORT</span><h1>Complete the last mile.</h1><p>Compare familiar cab operators and add a ride to your trip.</p></div>
+  <div id="cabList"></div>
+</section>
+
+<section id="trips" class="page">
+  <div class="page-title"><span class="eyebrow">TRAVEL WALLET</span><h1>Everything in one place.</h1><p>Bookings, saved itinerary items and your emergency trip card.</p></div>
+  <div id="tripDashboard"></div>
+</section>
+
+
+<section id="admin" class="page">
+<div class="admin-hero"><span class="eyebrow">SMARTTRIP CONTROL CENTER</span><h1>Admin Dashboard <em>● LIVE DEMO</em></h1><p>Monitor users, bookings, revenue and travel inventory from one place.</p><div class="admin-actions"><button class="secondary" onclick="refreshAdmin()">↻ Refresh</button><button class="primary" onclick="logoutAdmin()">Admin logout</button></div></div>
+<div class="admin-wrap"><div id="adminStats" class="admin-stats"></div>
+<div class="admin-grid">
+<div class="admin-panel wide"><div class="panel-head"><div><span class="eyebrow">ANALYTICS</span><h2>Booking activity</h2></div><span class="live-pill">● Demo data</span></div><div id="adminChart" class="fake-chart"></div></div>
+<div class="admin-panel"><div class="panel-head"><div><span class="eyebrow">DESTINATIONS</span><h2>Popular places</h2></div></div><div id="adminDestinations"></div></div>
+<div class="admin-panel"><div class="panel-head"><div><span class="eyebrow">RECENT</span><h2>Recent bookings</h2></div></div><div id="adminBookings"></div></div>
+<div class="admin-panel wide"><div class="panel-head"><div><span class="eyebrow">MANAGEMENT</span><h2>Travel inventory</h2></div></div><div class="manage-grid">
+<button onclick="adminAction('Hotels')">🏨 <b>Hotels</b><small>Listings & offers</small></button><button onclick="adminAction('Flights')">✈️ <b>Flights</b><small>Routes & fares</small></button><button onclick="adminAction('Buses')">🚌 <b>Buses</b><small>Operators & seats</small></button><button onclick="adminAction('Cabs')">🚕 <b>Cabs</b><small>City transport</small></button></div></div>
+<div class="admin-panel"><div class="panel-head"><div><span class="eyebrow">USERS</span><h2>Registered users</h2></div></div><div id="adminUsers"></div></div>
+<div class="admin-panel"><div class="panel-head"><div><span class="eyebrow">TOOLS</span><h2>Quick controls</h2></div></div><div class="admin-tools"><button class="secondary" onclick="adminNotify()">🔔 Create notification</button><button class="secondary" onclick="adminOffer()">💰 Create hotel offer</button><button class="secondary" onclick="adminExport()">⬇ Export admin report</button></div></div>
+</div></div></section>
+
+<section id="profile" class="page">
+  <div class="page-title"><span class="eyebrow">ACCOUNT</span><h1>Your SmartTrip profile</h1><p>Manage your demo account and saved travel activity.</p></div>
+  <div id="profileBox"></div>
+</section>
+</main>
+
+<div id="authModal" class="modal hidden">
+  <div class="modal-card auth-card">
+    <button class="close" onclick="closeAuth()">×</button>
+    <div class="auth-brand">✦ SmartTrip</div>
+    <div class="auth-tabs"><button id="loginTab" class="active" onclick="setAuthMode('login')">Login</button><button id="signupTab" onclick="setAuthMode('signup')">Create account</button></div><div class="role-switch"><button id="userRole" class="active" onclick="setRole('user')">👤 User</button><button id="adminRole" onclick="setRole('admin')">🛠️ Admin</button></div>
+    <h2 id="authTitle">Welcome back 👋</h2><span id="authRoleHint" class="role-hint">User login</span>
+    <p id="authSub">Login to book services and save your trip.</p>
+    <label id="nameWrap" class="hidden">Full name<input id="authName" placeholder="Your name"></label>
+    <label>Email or phone<input id="authIdentity" placeholder="name@example.com or 9876543210"></label>
+    <label>Password<input id="authPassword" type="password" placeholder="Minimum 6 characters"></label>
+    <div class="captcha-row"><div class="captcha" id="captchaText">A7K9P</div><button class="circle" onclick="newCaptcha()">↻</button></div>
+    <label>Enter CAPTCHA<input id="captchaInput" placeholder="Type the code above"></label>
+    <button class="primary full big" onclick="submitAuth()">Continue securely</button>
+    <small class="demo-note">Frontend demo authentication. Never store real passwords in localStorage in a production app.</small>
+  </div>
+</div>
+
+<div id="paymentModal" class="modal hidden">
+  <div class="modal-card payment-card">
+    <button class="close" onclick="closePayment()">×</button>
+    <span class="eyebrow">SECURE CHECKOUT</span><h2 id="paymentTitle">Complete booking</h2><p id="paymentSummary"></p>
+    <div class="pay-summary"><span>Total</span><strong id="paymentAmount">₹0</strong></div>
+    <label>Cardholder name<input id="cardName" placeholder="Demo User"></label>
+    <label>Card number<input id="cardNumber" maxlength="19" placeholder="4242 4242 4242 4242"></label>
+    <div class="form-grid"><label>Expiry<input placeholder="MM/YY"></label><label>CVV<input placeholder="123"></label></div>
+    <button class="primary full big" onclick="completePayment()">Pay & confirm</button>
+    <small class="demo-note">Demo payment only. No real transaction is processed.</small>
+  </div>
+</div>
+
+<div id="seatModal" class="modal hidden">
+  <div class="modal-card seat-card">
+    <button class="close" onclick="closeSeats()">×</button>
+    <span class="eyebrow">BUS SEAT MAP</span><h2 id="seatTitle">Select seats</h2>
+    <div class="bus-front">🚍 DRIVER</div>
+    <div id="seatGrid" class="seat-grid"></div>
+    <div class="seat-legend"><span>🟩 Available</span><span>🟥 Booked</span><span>🟦 Selected</span></div>
+    <div class="pay-summary"><span id="seatCount">0 seats</span><strong id="seatAmount">₹0</strong></div>
+    <button class="primary full big" onclick="continueBusBooking()">Continue</button>
+  </div>
+</div>
+
+<div id="toast"></div>
+<script src="script.js"></script>
+</body>
+</html>
